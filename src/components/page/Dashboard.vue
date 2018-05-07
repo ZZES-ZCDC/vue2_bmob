@@ -12,10 +12,10 @@
                                     <div>{{role}}</div>
                                 </div>
                             </div>
-                            <div class="user-info-list">上次登录时间：<span>2018-01-01</span></div>
-                            <div class="user-info-list">上次登录地点：<span>东莞</span></div>
+                            <div class="user-info-list">当前时间：<span>{{new Date().toLocaleDateString()}}</span></div>
+                            <div class="user-info-list">登录地点：<span>南京</span></div>
                         </el-card>
-                        <el-card shadow="hover">
+                        <!-- <el-card shadow="hover">
                             <div slot="header" class="clearfix">
                                 <span>语言详情</span>
                             </div>
@@ -27,7 +27,7 @@
                             <el-progress :percentage="11.9"></el-progress>
                             HTML
                             <el-progress :percentage="1.1" color="#f56c6c"></el-progress>
-                        </el-card>
+                        </el-card> -->
                     </el-col>
                 </el-row>
             </el-col>
@@ -38,8 +38,8 @@
                             <div class="grid-content grid-con-1">
                                 <i class="el-icon-view grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
+                                    <div class="grid-num">{{allDataNum}}</div>
+                                    <div>总信息量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -49,8 +49,8 @@
                             <div class="grid-content grid-con-2">
                                 <i class="el-icon-message grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
-                                    <div>系统消息</div>
+                                    <div class="grid-num">{{unhandlerNum}}</div>
+                                    <div>未处理工单</div>
                                 </div>
                             </div>
                         </el-card>
@@ -60,8 +60,8 @@
                             <div class="grid-content grid-con-3">
                                 <i class="el-icon-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>数量</div>
+                                    <div class="grid-num">{{unfinishNum}}</div>
+                                    <div>无原因工单</div>
                                 </div>
                             </div>
                         </el-card>
@@ -69,24 +69,12 @@
                 </el-row>
                 <el-card shadow="hover" :body-style="{ height: '304px'}">
                     <div slot="header" class="clearfix">
-                        <span>待办事项</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
+                        <span>未完成工单列表</span>
                     </div>
                     <el-table :data="todoList" :show-header="false" height="304" style="width: 100%;font-size:14px;">
-                        <el-table-column width="40">
-                            <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.status"></el-checkbox>
-                            </template>
-                        </el-table-column>
                         <el-table-column>
                             <template slot-scope="scope">
-                                <div class="todo-item" :class="{'todo-item-del': scope.row.status}">{{scope.row.title}}</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column width="60">
-                            <template slot-scope="scope">
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
+                                <div class="todo-item">报修序列号：{{scope.row.FSerialNumber}},       报修名称：{{scope.row.FName}}</div>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -98,40 +86,61 @@
 </template>
 
 <script>
+    import {request} from '../../util'
     export default {
         data() {
             return {
                 name: localStorage.getItem('ms_username'),
+                allDataNum: 0,
+                unhandlerNum: 0,
+                unfinishNum: 0,
                 todoList: [
-                    {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: false,
-                    }, {
-                        title: '今天要修复100个bug',
-                        status: false,
-                    },
-                    {
-                        title: '今天要修复100个bug',
-                        status: true,
-                    },
-                    {
-                        title: '今天要写100行代码加几个bug吧',
-                        status: true,
-                    }
                 ]
             }
         },
         computed: {
             role() {
                 return this.name === 'admin' ? '超级管理员' : '普通用户';
+            }
+        },
+        created(){
+            this.getAllNum()
+            this.getUnhandlerNum()
+            this.getUnfinishNum()
+            this.getUnfinish()
+        },
+        methods:{
+            getAllNum() {
+                request({
+                    url:'https://api.bmob.cn/1/classes/kn?count=1&limit=0',
+                    method:'get'
+                }).then((res)=>{
+                    this.allDataNum = res.data.count
+                })
+            },
+            getUnhandlerNum(){
+                request({
+                    url:'https://api.bmob.cn/1/classes/kn?where={"FHandlePerson":""}&count=1&limit=0',
+                    method:'get'
+                }).then((res)=>{
+                    this.unhandlerNum = res.data.count
+                })
+            },
+            getUnfinishNum(){
+                request({
+                    url:'https://api.bmob.cn/1/classes/kn?where={"FHandleResults":""}&count=1&limit=0',
+                    method:'get'
+                }).then((res)=>{
+                    this.unfinishNum = res.data.count
+                })
+            },
+            getUnfinish(){
+                request({
+                    url:'https://api.bmob.cn/1/classes/kn?where={"FHandleResults":""}',
+                    method: 'get'
+                }).then((res) => {
+                    this.todoList = res.data.results
+                })
             }
         }
     }

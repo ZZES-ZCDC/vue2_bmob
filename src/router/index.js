@@ -22,12 +22,12 @@ export default new Router({
                 {
                     path: '/table',
                     component: resolve => require(['../components/page/BaseTable.vue'], resolve),
-                    meta: { title: '基础表格' }
+                    meta: { title: '数据管理' }
                 },
                 {
                     path: '/tabs',
                     component: resolve => require(['../components/page/Tabs.vue'], resolve),
-                    meta: { title: 'tab选项卡' }
+                    meta: { title: '信息通知' }
                 },
                 {
                     path: '/form',
@@ -56,7 +56,7 @@ export default new Router({
                     // vue-schart组件
                     path: '/charts',
                     component: resolve => require(['../components/page/BaseCharts.vue'], resolve),
-                    meta: { title: 'schart图表' }
+                    meta: { title: '图表可视化' }
                 },
                 {
                     // 拖拽列表组件

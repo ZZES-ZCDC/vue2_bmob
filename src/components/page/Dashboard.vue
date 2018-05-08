@@ -103,7 +103,7 @@
                 return this.name === 'admin' ? '超级管理员' : '普通用户';
             }
         },
-        created(){
+        mounted(){
             this.getAllNum()
             this.getUnhandlerNum()
             this.getUnfinishNum()

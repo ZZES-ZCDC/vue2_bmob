@@ -16,24 +16,25 @@
                 <el-button type="primary" icon="search" @click="search">搜索</el-button>
             </div> -->
             <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column prop="FEvaluate" label="报修报价" sortable width="150">
-                </el-table-column>
-                <el-table-column prop="FHandlePerson" label="工单处理人员" sortable width="150">
-                </el-table-column>
-                <el-table-column prop="FHandleResults" label="处理结果" width="120">
-                </el-table-column>
-                <el-table-column prop="FId" label="用户tokenID" >
+                <el-table-column type="selection" width="50"></el-table-column>
+                <el-table-column prop="FId" label="用户tokenID"  width="150">
                 </el-table-column>
                 <el-table-column prop="FSerialNumber" label="报修序列号" sortable width="150">
                 </el-table-column>
                 <el-table-column prop="FServiceDate" label="报修日期" sortable width="150">
                 </el-table-column>
-                <el-table-column prop="FStatus" label="处理进度" width="120">
+                <el-table-column prop="wilsonsocre" label="wilsonsocre" width="150" >
                 </el-table-column>
-                <el-table-column prop="wilsonsocre" label="wilsonsocre" >
+                <el-table-column prop="FEvaluate" label="报修报价" sortable width="120">
                 </el-table-column>
-                <el-table-column label="操作" width="180">
+                <el-table-column prop="FStatus" label="处理进度" width="100">
+                </el-table-column>
+                <el-table-column prop="FHandleResults" label="处理结果" width="150">
+                </el-table-column>
+                <el-table-column prop="FHandlePerson" label="工单处理人员" sortable width="120">
+                </el-table-column>
+                
+                <el-table-column label="操作" width="100">
                     <template slot-scope="scope">
                         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <!-- <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
@@ -105,7 +106,7 @@
                 idx: -1
             }
         },
-        created() {
+        mounted() {
             this.getData();
         },
         computed: {

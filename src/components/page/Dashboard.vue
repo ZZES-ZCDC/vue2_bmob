@@ -86,7 +86,7 @@
 </template>
 
 <script>
-    import {request} from '../../util'
+    import {request,url} from '../../util'
     export default {
         data() {
             return {
@@ -112,7 +112,7 @@
         methods:{
             getAllNum() {
                 request({
-                    url:'https://api.bmob.cn/1/classes/kn?count=1&limit=0',
+                    url:url+'?count=1&limit=0',
                     method:'get'
                 }).then((res)=>{
                     this.allDataNum = res.data.count
@@ -120,7 +120,7 @@
             },
             getUnhandlerNum(){
                 request({
-                    url:'https://api.bmob.cn/1/classes/kn?where={"FHandlePerson":""}&count=1&limit=0',
+                    url:url+'?where={"FHandlePerson":""}&count=1&limit=0',
                     method:'get'
                 }).then((res)=>{
                     this.unhandlerNum = res.data.count
@@ -128,7 +128,7 @@
             },
             getUnfinishNum(){
                 request({
-                    url:'https://api.bmob.cn/1/classes/kn?where={"FHandleResults":""}&count=1&limit=0',
+                    url:url+'?where={"FHandleResults":""}&count=1&limit=0',
                     method:'get'
                 }).then((res)=>{
                     this.unfinishNum = res.data.count
@@ -136,7 +136,7 @@
             },
             getUnfinish(){
                 request({
-                    url:'https://api.bmob.cn/1/classes/kn?where={"FHandleResults":""}',
+                    url:url+'?where={"FHandleResults":""}',
                     method: 'get'
                 }).then((res) => {
                     this.todoList = res.data.results

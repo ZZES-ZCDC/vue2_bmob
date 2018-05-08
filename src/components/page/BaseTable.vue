@@ -79,7 +79,7 @@
 </template>
 
 <script>
-    import {request} from '../../util'
+    import {request,url} from '../../util'
     export default {
         data() {
             return {
@@ -107,7 +107,7 @@
             }
         },
         mounted() {
-            this.getData();
+            this.getData()
         },
         computed: {
         },
@@ -120,7 +120,7 @@
  
             getData() {  
                 request({
-                    url:'https://api.bmob.cn/1/classes/kn',
+                    url:url,
                     method:'get'
                 }).then((res) => {
                     // console.log(res.data.results)
@@ -160,7 +160,7 @@
                 // this.$set(this.tableData, this.idx, this.form);
                 // console.log(this.form)
                 request({
-                    url:'https://api.bmob.cn/1/classes/kn/'+this.form.objectId,
+                    url:`${url}/${this.form.objectId}`,
                     method:'put',
                     data:{
                         FHandlePerson: this.form.FHandlePerson,

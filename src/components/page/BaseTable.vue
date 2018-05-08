@@ -15,36 +15,32 @@
                 <el-input v-model="select_word" placeholder="筛选关键词" class="handle-input mr10"></el-input>
                 <el-button type="primary" icon="search" @click="search">搜索</el-button>
             </div> -->
-            <el-table :data="tableData" border style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="50"></el-table-column>
+            <el-table :data="tableData" border max-height="500" style="width: 100%" ref="multipleTable" @selection-change="handleSelectionChange">
+                <el-table-column fixed type="selection" width="50"></el-table-column>
                 <el-table-column prop="FId" label="用户tokenID"  width="150">
                 </el-table-column>
-                <el-table-column prop="FSerialNumber" label="报修序列号" sortable width="150">
+                <el-table-column prop="FSerialNumber" label="报修序列号"  width="150">
                 </el-table-column>
-                <el-table-column prop="FServiceDate" label="报修日期" sortable width="150">
+                <el-table-column prop="FServiceDate" label="报修日期"  width="150">
                 </el-table-column>
                 <el-table-column prop="wilsonsocre" label="wilsonsocre" width="150" >
                 </el-table-column>
-                <el-table-column prop="FEvaluate" label="报修报价" sortable width="120">
+                <el-table-column prop="FEvaluate" label="报修报价"  width="120">
                 </el-table-column>
                 <el-table-column prop="FStatus" label="处理进度" width="100">
                 </el-table-column>
                 <el-table-column prop="FHandleResults" label="处理结果" width="150">
                 </el-table-column>
-                <el-table-column prop="FHandlePerson" label="工单处理人员" sortable width="120">
+                <el-table-column prop="FHandlePerson" label="工单处理人员"  width="120">
                 </el-table-column>
                 
-                <el-table-column label="操作" width="100">
+                <el-table-column label="操作" width="80" fixed="right">
                     <template slot-scope="scope">
                         <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <!-- <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button> -->
                     </template>
                 </el-table-column>
             </el-table>
-            <!-- <div class="pagination">
-                <el-pagination @current-change="handleCurrentChange" layout="prev, pager, next" :total="1000">
-                </el-pagination>
-            </div> -->
         </div>
 
         <!-- 编辑弹出框 -->
@@ -120,7 +116,7 @@
  
             getData() {  
                 request({
-                    url:url,
+                    url:`${url}?order=-FServiceDate`,
                     method:'get'
                 }).then((res) => {
                     // console.log(res.data.results)

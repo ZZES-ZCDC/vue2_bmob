@@ -10,3 +10,9 @@ export  function request(options){
 }
 const table = 'kn' // 改成您的表名
 export const url = `https://api.bmob.cn/1/classes/${table}`
+const app_key = '58001567-c03b-47b9-b811-124ef8c85a63'
+const user_id = 'klrenklren'
+export const aiUrl = `http://api.ruyi.ai/v1/message?app_key=${app_key}&user_id=${user_id}&q=`
+export  function aiRequest(options){
+  return axios(options)
+}

@@ -42,6 +42,11 @@
                     },
                     {
                         icon: 'el-icon-message',
+                        index: 'chat',
+                        title: 'AI助手'
+                    },
+                    {
+                        icon: 'el-icon-message',
                         index: 'tabs',
                         title: '信息通知'
                     },

@@ -30,6 +30,11 @@ export default new Router({
                     meta: { title: '信息通知' }
                 },
                 {
+                    path: '/chat',
+                    component: resolve => require(['../components/page/AiChat.vue'], resolve),
+                    meta: { title: 'AI助手' }
+                },
+                {
                     path: '/form',
                     component: resolve => require(['../components/page/BaseForm.vue'], resolve),
                     meta: { title: '基本表单' }

@@ -61,7 +61,7 @@
                                 <i class="el-icon-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
                                     <div class="grid-num">{{unfinishNum}}</div>
-                                    <div>无原因工单</div>
+                                    <div>用户反馈总数</div>
                                 </div>
                             </div>
                         </el-card>
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-    import {request,url} from '../../util'
+    import {request,url,url2} from '../../util'
     export default {
         data() {
             return {
@@ -118,17 +118,19 @@
                     this.allDataNum = res.data.count
                 })
             },
+            // 更具status
             getUnhandlerNum(){
                 request({
-                    url:url+'?where={"FHandlePerson":""}&count=1&limit=0',
+                    url:url+'?where={"FStatus":{"$lt":0.9}}&count=1&limit=0',
                     method:'get'
                 }).then((res)=>{
                     this.unhandlerNum = res.data.count
                 })
             },
+            // 用户反馈
             getUnfinishNum(){
                 request({
-                    url:url+'?where={"FHandleResults":""}&count=1&limit=0',
+                    url:url2+'?count=1&limit=0',
                     method:'get'
                 }).then((res)=>{
                     this.unfinishNum = res.data.count
@@ -136,7 +138,7 @@
             },
             getUnfinish(){
                 request({
-                    url:url+'?where={"FHandleResults":""}',
+                    url:url+'?where={"FStatus":{"$lt":0.9}}',
                     method: 'get'
                 }).then((res) => {
                     this.todoList = res.data.results

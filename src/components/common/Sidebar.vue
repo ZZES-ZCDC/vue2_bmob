@@ -45,11 +45,11 @@
                         index: 'chat',
                         title: '用户反馈'
                     },
-                    {
-                        icon: 'el-icon-message',
-                        index: 'tabs',
-                        title: '信息通知'
-                    },
+                    // {
+                    //     icon: 'el-icon-message',
+                    //     index: 'tabs',
+                    //     title: '信息通知'
+                    // },
                     // {
                     //     icon: 'el-icon-date',
                     //     index: '3',
@@ -73,11 +73,11 @@
                     //         }
                     //     ]
                     // },
-                    {
-                        icon: 'el-icon-star-on',
-                        index: 'charts',
-                        title: '图表可视化'
-                    },
+                    // {
+                    //     icon: 'el-icon-star-on',
+                    //     index: 'charts',
+                    //     title: '图表可视化'
+                    // },
                     // {
                     //     icon: 'el-icon-rank',
                     //     index: 'drag',

@@ -43,7 +43,7 @@
                     {
                         icon: 'el-icon-message',
                         index: 'chat',
-                        title: 'AI助手'
+                        title: '用户反馈'
                     },
                     {
                         icon: 'el-icon-message',

@@ -31,8 +31,8 @@ export default new Router({
                 },
                 {
                     path: '/chat',
-                    component: resolve => require(['../components/page/AiChat.vue'], resolve),
-                    meta: { title: 'AI助手' }
+                    component: resolve => require(['../components/page/Callback.vue'], resolve),
+                    meta: { title: '用户反馈' }
                 },
                 {
                     path: '/form',

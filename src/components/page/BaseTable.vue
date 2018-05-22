@@ -27,9 +27,9 @@
                 </el-table-column>
                 <el-table-column prop="FEvaluate" label="报修报价"  width="120">
                 </el-table-column>
-                <el-table-column prop="FStatus" label="处理进度" width="100">
+                <el-table-column prop="FStatus" :formatter="formatStatus" label="处理进度" width="100">
                 </el-table-column>
-                <el-table-column prop="FHandleResults" label="处理结果" width="150">
+                <el-table-column prop="FHandleResults"  label="处理结果" width="150">
                 </el-table-column>
                 <el-table-column prop="FHandlePerson" label="工单处理人员"  width="120">
                 </el-table-column>
@@ -113,7 +113,14 @@
                 this.cur_page = val;
                 this.getData();
             },
- 
+            formatStatus(row, column) {
+                if(row.FStatus) {
+                    let status = parseInt(row.FStatus)
+                    return status < 0.9 ? '未完成':'完成'
+                } else {
+                    return 'null'
+                }
+            },
             getData() {  
                 request({
                     url:`${url}?order=-FServiceDate`,

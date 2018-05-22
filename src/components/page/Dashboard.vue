@@ -95,7 +95,8 @@
                 unhandlerNum: 0,
                 unfinishNum: 0,
                 todoList: [
-                ]
+                ],
+                status:[],
             }
         },
         computed: {
@@ -103,9 +104,12 @@
                 return this.name === 'admin' ? '超级管理员' : '普通用户';
             }
         },
-        mounted(){
+        created() {
+            this.filterStatus()
+        },
+        mounted() {
             this.getAllNum()
-            this.getUnhandlerNum()
+            // this.getUnhandlerNum()
             this.getUnfinishNum()
             this.getUnfinish()
         },
@@ -118,15 +122,29 @@
                     this.allDataNum = res.data.count
                 })
             },
-            // 更具status
-            getUnhandlerNum(){
+            // 遍历出符合的status
+            filterStatus(){
                 request({
-                    url:url+'?where={"FStatus":{"$lt":0.9}}&count=1&limit=0',
+                    // url:url+'?where={"FStatus":{"$lt":0.9}}&count=1&limit=0',
+                    url:url,
                     method:'get'
-                }).then((res)=>{
-                    this.unhandlerNum = res.data.count
+                }).then((res)=>{       
+                    let arr = res.data.results
+                    arr.map((v,i) => {
+                        if(v.FStatus){
+                            if(parseFloat(v.FStatus) < 0.9) {
+                                this.status.push(v)
+                                ++this.unhandlerNum
+                            }
+                        }
+                    })
                 })
             },
+            // 更具status
+            // getUnhandlerNum(){
+            //     console.log('number',typeof(this.status))
+            //     this.unhandlerNum = this.status.length
+            // },
             // 用户反馈
             getUnfinishNum(){
                 request({
@@ -137,12 +155,7 @@
                 })
             },
             getUnfinish(){
-                request({
-                    url:url+'?where={"FStatus":{"$lt":0.9}}',
-                    method: 'get'
-                }).then((res) => {
-                    this.todoList = res.data.results
-                })
+                this.todoList = this.status
             }
         }
     }
